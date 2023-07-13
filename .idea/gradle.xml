@@ -20,6 +20,7 @@
             <option value="$PROJECT_DIR$/data/data-source" />
             <option value="$PROJECT_DIR$/features" />
             <option value="$PROJECT_DIR$/features/feature-category" />
+            <option value="$PROJECT_DIR$/features/feature-source" />
           </set>
         </option>
       </GradleProjectSettings>

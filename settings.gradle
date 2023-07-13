@@ -17,11 +17,12 @@ include ':app'
 
 /* Features */
 include ':features:feature-category'
+include ':features:feature-source'
 
 /* Data */
 include ':data:data-category'
+include ':data:data-source'
 
 /* Common */
 include ':common:ui'
-include ':data:data-source'
 include ':common:network'
