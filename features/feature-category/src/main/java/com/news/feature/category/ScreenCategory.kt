@@ -1,5 +1,6 @@
 package com.news.feature.category
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -21,10 +22,16 @@ import androidx.compose.ui.unit.sp
 import com.news.data.category.model.Category
 
 @Composable
-fun ScreenCategory(categories: List<Category>) {
+fun ScreenCategory(
+    categories: List<Category>,
+    onClickCategory: (categoryId: String) -> Unit
+) {
     Column {
         CategoryTitle(title = stringResource(id = R.string.category_title))
-        CategoryList(categories = categories)
+        CategoryList(
+            categories = categories,
+            onClickCategory = { onClickCategory(it) }
+        )
     }
 }
 
@@ -38,24 +45,36 @@ fun CategoryTitle(title: String) {
 }
 
 @Composable
-fun CategoryList(categories: List<Category>) {
+fun CategoryList(
+    categories: List<Category>,
+    onClickCategory: (categoryId: String) -> Unit
+) {
     LazyColumn(modifier = Modifier.fillMaxWidth()) {
         items(categories) { category ->
-            CategoryItem(category.name)
+            CategoryItem(
+                category = category,
+                onClickCategory = { onClickCategory(it) }
+            )
             Divider(color = Color.LightGray, modifier = Modifier.padding(horizontal = 20.dp))
         }
     }
 }
 
 @Composable
-fun CategoryItem(name: String) {
+fun CategoryItem(
+    category: Category,
+    onClickCategory: (categoryId: String) -> Unit
+) {
     Row(
         modifier = Modifier
             .fillMaxWidth()
             .padding(20.dp)
+            .clickable {
+                onClickCategory(category.id)
+            }
     ) {
         Text(
-            text = name,
+            text = category.name,
             modifier = Modifier.weight(1f)
         )
         Icon(
@@ -73,7 +92,8 @@ fun PreviewScreenCategory() {
             Category.Business("Business"),
             Category.Sports("Sports"),
             Category.Technology("Technology")
-        )
+        ),
+        onClickCategory = {}
     )
 }
 
@@ -91,7 +111,8 @@ fun PreviewCategoryList() {
             Category.Business("Business"),
             Category.Sports("Sports"),
             Category.Technology("Technology")
-        )
+        ),
+        {}
     )
 }
 
@@ -99,5 +120,5 @@ fun PreviewCategoryList() {
 @Preview(showBackground = true)
 @Composable
 fun PreviewCategoryItem() {
-    CategoryItem("Business")
+    CategoryItem(Category.Business("Business"), {})
 }

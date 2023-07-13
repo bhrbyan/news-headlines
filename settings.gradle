@@ -23,3 +23,4 @@ include ':data:data-category'
 
 /* Common */
 include ':common:ui'
+include ':data:data-source'

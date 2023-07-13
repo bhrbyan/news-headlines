@@ -1,5 +1,6 @@
 package com.news.headlines
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -33,7 +34,12 @@ class MainActivity : ComponentActivity() {
                             color = MaterialTheme.colors.background
                         ) {
                             val categories = CategoryUtil.getCategories(this)
-                            ScreenCategory(categories)
+                            ScreenCategory(
+                                categories = categories,
+                                onClickCategory = {
+                                    startActivity(Intent())
+                                }
+                            )
                         }
                     }
                 )
