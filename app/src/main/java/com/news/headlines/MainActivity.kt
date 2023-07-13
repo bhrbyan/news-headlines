@@ -4,40 +4,40 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material.MaterialTheme
+import androidx.compose.material.Scaffold
 import androidx.compose.material.Surface
-import androidx.compose.material.Text
-import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
-import com.news.headlines.ui.theme.NewsHeadlinesTheme
+import androidx.compose.ui.res.stringResource
+import com.news.feature.category.CategoryUtil
+import com.news.feature.category.ScreenCategory
+import com.news.ui.R
+import com.news.ui.component.NewsHeadlineTopAppBar
+import com.news.ui.theme.NewsHeadlinesTheme
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
             NewsHeadlinesTheme {
-                // A surface container using the 'background' color from the theme
-                Surface(
-                    modifier = Modifier.fillMaxSize(),
-                    color = MaterialTheme.colors.background
-                ) {
-                    Greeting("Android")
-                }
+                Scaffold(
+                    topBar = {
+                        NewsHeadlineTopAppBar(title = stringResource(id = R.string.app_name))
+                    },
+                    content = {
+                        Surface(
+                            modifier = Modifier
+                                .padding(it)
+                                .fillMaxSize(),
+                            color = MaterialTheme.colors.background
+                        ) {
+                            val categories = CategoryUtil.getCategories(this)
+                            ScreenCategory(categories)
+                        }
+                    }
+                )
             }
         }
-    }
-}
-
-@Composable
-fun Greeting(name: String) {
-    Text(text = "Hello $name!")
-}
-
-@Preview(showBackground = true)
-@Composable
-fun DefaultPreview() {
-    NewsHeadlinesTheme {
-        Greeting("Android")
     }
 }

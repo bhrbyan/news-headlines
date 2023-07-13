@@ -14,3 +14,12 @@ dependencyResolutionManagement {
 }
 rootProject.name = "News Headlines"
 include ':app'
+
+/* Features */
+include ':features:feature-category'
+
+/* Data */
+include ':data:data-category'
+
+/* Common */
+include ':common:ui'
