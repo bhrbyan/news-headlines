@@ -19,7 +19,9 @@ class ArticleDetailActivity : ComponentActivity() {
                 CommonMainScreen(
                     title = stringResource(id = R.string.article_title),
                     hasNavigation = true,
-                    onClickNavigation = { onBackPressedDispatcher.onBackPressed() }
+                    hasAction = false,
+                    onClickNavigation = { onBackPressedDispatcher.onBackPressed() },
+                    onClickAction = {}
                 ) {
                     val url = intent.getStringExtra(ArticleConstants.KEY_EXTRA_URL) ?: ""
                     CommonWebView(url = url)

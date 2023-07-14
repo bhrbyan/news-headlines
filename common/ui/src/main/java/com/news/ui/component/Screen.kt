@@ -12,8 +12,10 @@ import androidx.compose.ui.Modifier
 fun CommonMainScreen(
     title: String,
     hasNavigation: Boolean,
+    hasAction: Boolean,
     modifier: Modifier = Modifier,
     onClickNavigation: () -> Unit,
+    onClickAction: () -> Unit,
     screenContent: @Composable () -> Unit
 ) {
     Scaffold(
@@ -21,7 +23,9 @@ fun CommonMainScreen(
             CommonTopAppBar(
                 title = title,
                 hasNavigation = hasNavigation,
-                onClickNavigation = { onClickNavigation() }
+                hasAction = hasAction,
+                onClickNavigation = { onClickNavigation() },
+                onClickAction = { onClickAction() }
             )
         },
         content = {

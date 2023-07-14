@@ -21,7 +21,11 @@ class SourceActivity : ComponentActivity() {
                 CommonMainScreen(
                     title = stringResource(id = R.string.source_title),
                     hasNavigation = true,
-                    onClickNavigation = { onBackPressedDispatcher.onBackPressed() }
+                    hasAction = true,
+                    onClickNavigation = { onBackPressedDispatcher.onBackPressed() },
+                    onClickAction = {
+
+                    }
                 ) {
                     val category: String =
                         intent.getStringExtra(SourceConstants.KEY_EXTRA_CATEGORY) ?: ""

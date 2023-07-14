@@ -19,7 +19,9 @@ class ArticleActivity : ComponentActivity() {
                 CommonMainScreen(
                     title = stringResource(id = R.string.articles_title),
                     hasNavigation = true,
-                    onClickNavigation = { onBackPressedDispatcher.onBackPressed() }
+                    hasAction = true,
+                    onClickNavigation = { onBackPressedDispatcher.onBackPressed() },
+                    onClickAction = {}
                 ) {
                     val source = intent.getStringExtra(ArticleConstants.KEY_EXTRA_SOURCE) ?: ""
                     ScreenArticle(

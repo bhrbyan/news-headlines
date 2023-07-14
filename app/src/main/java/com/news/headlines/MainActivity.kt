@@ -20,7 +20,9 @@ class MainActivity : ComponentActivity() {
             NewsHeadlinesTheme {
                 CommonMainScreen(title = stringResource(id = R.string.app_name),
                     hasNavigation = false,
-                    onClickNavigation = { }
+                    hasAction = false,
+                    onClickNavigation = {},
+                    onClickAction = {}
                 ) {
                     val categories = CategoryUtil.getCategories(this)
                     ScreenCategory(
