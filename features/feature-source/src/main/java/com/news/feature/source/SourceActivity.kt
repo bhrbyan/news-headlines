@@ -1,6 +1,5 @@
-package com.news.headlines
+package com.news.feature.source
 
-import android.content.Intent
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -11,15 +10,13 @@ import androidx.compose.material.Scaffold
 import androidx.compose.material.Surface
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
-import com.news.feature.category.CategoryUtil
-import com.news.feature.category.ScreenCategory
-import com.news.feature.source.SourceActivity
-import com.news.feature.source.SourceConstants
-import com.news.ui.R
 import com.news.ui.component.NewsHeadlineTopAppBar
 import com.news.ui.theme.NewsHeadlinesTheme
+import dagger.hilt.android.AndroidEntryPoint
 
-class MainActivity : ComponentActivity() {
+@AndroidEntryPoint
+class SourceActivity : ComponentActivity() {
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
@@ -27,9 +24,10 @@ class MainActivity : ComponentActivity() {
                 Scaffold(
                     topBar = {
                         NewsHeadlineTopAppBar(
-                            title = stringResource(id = R.string.app_name),
-                            hasNavigation = false,
-                            onClickNavigation = {})
+                            title = stringResource(id = R.string.source_title),
+                            hasNavigation = true,
+                            onClickNavigation = { onBackPressedDispatcher.onBackPressed() }
+                        )
                     },
                     content = {
                         Surface(
@@ -38,16 +36,12 @@ class MainActivity : ComponentActivity() {
                                 .fillMaxSize(),
                             color = MaterialTheme.colors.background
                         ) {
-                            val categories = CategoryUtil.getCategories(this)
-                            ScreenCategory(
-                                categories = categories,
-                                onClickCategory = { category ->
-                                    startActivity(
-                                        Intent(this, SourceActivity::class.java).apply {
-                                            putExtra(SourceConstants.KEY_EXTRA_CATEGORY, category)
-                                        }
-                                    )
-                                }
+                            val category: String =
+                                intent.getStringExtra(SourceConstants.KEY_EXTRA_CATEGORY) ?: ""
+
+                            ScreenSource(
+                                category = category,
+                                onClickSource = {}
                             )
                         }
                     }
@@ -55,4 +49,5 @@ class MainActivity : ComponentActivity() {
             }
         }
     }
+
 }
