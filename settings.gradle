@@ -27,3 +27,4 @@ include ':data:data-article'
 /* Common */
 include ':common:ui'
 include ':common:network'
+include ':features:feature-article'
