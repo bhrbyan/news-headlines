@@ -7,9 +7,15 @@ import androidx.compose.material.TopAppBar
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.ArrowBack
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
 
 @Composable
-fun NewsHeadlineTopAppBar(title: String, hasNavigation: Boolean, onClickNavigation: () -> Unit) {
+fun CommonTopAppBar(
+    title: String,
+    hasNavigation: Boolean,
+    onClickNavigation: () -> Unit,
+    modifier: Modifier = Modifier
+) {
     if (hasNavigation) {
         TopAppBar(
             title = {
@@ -24,13 +30,15 @@ fun NewsHeadlineTopAppBar(title: String, hasNavigation: Boolean, onClickNavigati
                         Icon(imageVector = Icons.Rounded.ArrowBack, contentDescription = null)
                     }
                 )
-            }
+            },
+            modifier = modifier
         )
     } else {
         TopAppBar(
             title = {
                 Text(text = title)
-            }
+            },
+            modifier = modifier
         )
     }
 }

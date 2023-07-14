@@ -16,7 +16,7 @@ import com.news.feature.category.ScreenCategory
 import com.news.feature.source.SourceActivity
 import com.news.feature.source.SourceConstants
 import com.news.ui.R
-import com.news.ui.component.NewsHeadlineTopAppBar
+import com.news.ui.component.CommonTopAppBar
 import com.news.ui.theme.NewsHeadlinesTheme
 
 class MainActivity : ComponentActivity() {
@@ -26,7 +26,7 @@ class MainActivity : ComponentActivity() {
             NewsHeadlinesTheme {
                 Scaffold(
                     topBar = {
-                        NewsHeadlineTopAppBar(
+                        CommonTopAppBar(
                             title = stringResource(id = R.string.app_name),
                             hasNavigation = false,
                             onClickNavigation = {})

@@ -10,7 +10,7 @@ import androidx.compose.material.Scaffold
 import androidx.compose.material.Surface
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
-import com.news.ui.component.NewsHeadlineTopAppBar
+import com.news.ui.component.CommonTopAppBar
 import com.news.ui.theme.NewsHeadlinesTheme
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -23,7 +23,7 @@ class SourceActivity : ComponentActivity() {
             NewsHeadlinesTheme {
                 Scaffold(
                     topBar = {
-                        NewsHeadlineTopAppBar(
+                        CommonTopAppBar(
                             title = stringResource(id = R.string.source_title),
                             hasNavigation = true,
                             onClickNavigation = { onBackPressedDispatcher.onBackPressed() }
@@ -41,7 +41,9 @@ class SourceActivity : ComponentActivity() {
 
                             ScreenSource(
                                 category = category,
-                                onClickSource = {}
+                                onClickSource = {
+
+                                }
                             )
                         }
                     }
