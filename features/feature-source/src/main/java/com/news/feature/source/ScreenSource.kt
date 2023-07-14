@@ -32,7 +32,7 @@ import com.news.ui.component.CommonMessageError
 fun ScreenSource(
     category: String,
     modifier: Modifier = Modifier,
-    onClickSource: (source: String) -> Unit,
+    onClickSource: (id: String, name: String) -> Unit,
     sourceViewModel: SourceViewModel = viewModel()
 ) {
     val viewState = sourceViewModel.viewState.collectAsState()
@@ -52,7 +52,7 @@ fun ScreenSource(
         is SourceViewState.Success -> {
             SourceList(
                 sources = result.sources,
-                onClickSource = { onClickSource(it) },
+                onClickSource = { id, name -> onClickSource(id, name) },
                 modifier = modifier
             )
         }
@@ -70,11 +70,11 @@ fun ScreenSource(
 fun SourceList(
     sources: List<Source>,
     modifier: Modifier = Modifier,
-    onClickSource: (source: String) -> Unit
+    onClickSource: (id: String, name: String) -> Unit
 ) {
     LazyColumn(modifier = modifier.fillMaxWidth()) {
         items(sources) { source ->
-            SourceItem(source = source, onClickSource = { onClickSource(it) })
+            SourceItem(source = source, onClickSource = { id, name -> onClickSource(id, name) })
             Divider(color = Color.LightGray, modifier = Modifier.padding(horizontal = 20.dp))
         }
     }
@@ -82,7 +82,9 @@ fun SourceList(
 
 @Composable
 fun SourceItem(
-    source: Source, onClickSource: (source: String) -> Unit, modifier: Modifier = Modifier
+    source: Source,
+    onClickSource: (id: String, name: String) -> Unit,
+    modifier: Modifier = Modifier
 ) {
     Row(
         verticalAlignment = Alignment.CenterVertically,
@@ -90,7 +92,7 @@ fun SourceItem(
             .padding(20.dp)
             .fillMaxWidth()
             .clickable {
-                onClickSource(source.id)
+                onClickSource(source.id, source.name)
             }
     ) {
         Column(
@@ -137,7 +139,7 @@ fun PreviewSourceList() {
             "",
             ""
         ),
-    ), onClickSource = {})
+    ), onClickSource = { _, _ -> })
 }
 
 @Composable
@@ -151,5 +153,5 @@ fun PreviewSourceItem() {
         "",
         "",
         ""
-    ), onClickSource = {})
+    ), onClickSource = { _, _ -> })
 }

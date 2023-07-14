@@ -4,7 +4,6 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.compose.ui.res.stringResource
 import com.news.ui.component.CommonMainScreen
 import com.news.ui.theme.NewsHeadlinesTheme
 import dagger.hilt.android.AndroidEntryPoint
@@ -16,16 +15,18 @@ class ArticleActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             NewsHeadlinesTheme {
+                val sourceId = intent.getStringExtra(ArticleConstants.KEY_EXTRA_SOURCE_ID) ?: ""
+                val sourceName = intent.getStringExtra(ArticleConstants.KEY_EXTRA_SOURCE_NAME) ?: ""
+
                 CommonMainScreen(
-                    title = stringResource(id = R.string.articles_title),
+                    title = sourceName,
                     hasNavigation = true,
                     hasAction = true,
                     onClickNavigation = { onBackPressedDispatcher.onBackPressed() },
                     onClickAction = {}
                 ) {
-                    val source = intent.getStringExtra(ArticleConstants.KEY_EXTRA_SOURCE) ?: ""
                     ScreenArticle(
-                        source = source,
+                        source = sourceId,
                         onClickArticle = { url ->
                             startActivity(
                                 Intent(this, ArticleDetailActivity::class.java).apply {

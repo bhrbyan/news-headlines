@@ -5,7 +5,7 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import com.news.feature.article.ArticleActivity
-import com.news.feature.article.ArticleConstants.KEY_EXTRA_SOURCE
+import com.news.feature.article.ArticleConstants
 import com.news.ui.component.CommonMainScreen
 import com.news.ui.theme.NewsHeadlinesTheme
 import dagger.hilt.android.AndroidEntryPoint
@@ -33,10 +33,11 @@ class SourceActivity : ComponentActivity() {
                 ) {
                     ScreenSource(
                         category = categoryId,
-                        onClickSource = { source ->
+                        onClickSource = { id, name ->
                             startActivity(
                                 Intent(this, ArticleActivity::class.java).apply {
-                                    putExtra(KEY_EXTRA_SOURCE, source)
+                                    putExtra(ArticleConstants.KEY_EXTRA_SOURCE_ID, id)
+                                    putExtra(ArticleConstants.KEY_EXTRA_SOURCE_NAME, name)
                                 }
                             )
                         }
