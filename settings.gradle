@@ -22,6 +22,7 @@ include ':features:feature-source'
 /* Data */
 include ':data:data-category'
 include ':data:data-source'
+include ':data:data-article'
 
 /* Common */
 include ':common:ui'
