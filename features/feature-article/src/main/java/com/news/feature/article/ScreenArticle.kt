@@ -28,7 +28,7 @@ import com.google.android.material.textview.MaterialTextView
 import com.news.data.article.model.Article
 import com.news.ui.R
 import com.news.ui.component.CommonLoading
-import com.news.ui.component.CommonMessageError
+import com.news.ui.component.CommonMessage
 
 @Composable
 fun ScreenArticle(
@@ -59,8 +59,15 @@ fun ScreenArticle(
             )
         }
 
+        is ArticleViewState.Empty -> {
+            CommonMessage(
+                message = stringResource(id = R.string.common_empty_message),
+                modifier = modifier
+            )
+        }
+
         is ArticleViewState.Error -> {
-            CommonMessageError(
+            CommonMessage(
                 message = stringResource(id = R.string.common_error_message),
                 modifier = modifier
             )

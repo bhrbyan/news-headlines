@@ -2,5 +2,6 @@
   <string name="app_name">News Headlines</string>
 
   <!-- Common -->
-  <string name="common_error_message">there is a problem, please try again later</string>
+  <string name="common_error_message">There is a problem, please try again later</string>
+  <string name="common_empty_message">Data not found!</string>
 </resources>

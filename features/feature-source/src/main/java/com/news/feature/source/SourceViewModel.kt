@@ -28,6 +28,8 @@ class SourceViewModel @Inject constructor(private val getSourcesUseCase: GetSour
                 .collect { sources ->
                     if (sources?.isNotEmpty() == true) {
                         _viewState.value = SourceViewState.Success(sources)
+                    } else {
+                        _viewState.value = SourceViewState.Empty
                     }
                 }
         }

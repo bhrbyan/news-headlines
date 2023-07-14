@@ -26,7 +26,7 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import com.news.data.source.model.Source
 import com.news.ui.R
 import com.news.ui.component.CommonLoading
-import com.news.ui.component.CommonMessageError
+import com.news.ui.component.CommonMessage
 
 @Composable
 fun ScreenSource(
@@ -57,8 +57,15 @@ fun ScreenSource(
             )
         }
 
+        is SourceViewState.Empty -> {
+            CommonMessage(
+                message = stringResource(id = R.string.common_empty_message),
+                modifier = modifier
+            )
+        }
+
         is SourceViewState.Error -> {
-            CommonMessageError(
+            CommonMessage(
                 message = stringResource(id = R.string.common_error_message),
                 modifier = modifier
             )

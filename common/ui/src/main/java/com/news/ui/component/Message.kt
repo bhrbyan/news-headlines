@@ -9,7 +9,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 
 @Composable
-fun CommonMessageError(message: String, modifier: Modifier = Modifier) {
+fun CommonMessage(message: String, modifier: Modifier = Modifier) {
     Box(
         modifier = modifier.fillMaxSize(),
         contentAlignment = Alignment.Center
@@ -21,5 +21,5 @@ fun CommonMessageError(message: String, modifier: Modifier = Modifier) {
 @Composable
 @Preview(showBackground = true)
 fun PreviewMessageError() {
-    CommonMessageError(message = "Terdapat masalah ditemukan")
+    CommonMessage(message = "Terdapat masalah ditemukan")
 }

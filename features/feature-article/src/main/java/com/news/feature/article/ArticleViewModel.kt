@@ -27,6 +27,8 @@ class ArticleViewModel @Inject constructor(private val getArticlesUseCase: GetAr
                 .collect { articles ->
                     if (articles?.isNotEmpty() == true) {
                         _viewState.value = ArticleViewState.Success(articles)
+                    } else {
+                        _viewState.value = ArticleViewState.Empty
                     }
                 }
         }
