@@ -27,10 +27,11 @@ class MainActivity : ComponentActivity() {
                     val categories = CategoryUtil.getCategories(this)
                     ScreenCategory(
                         categories = categories,
-                        onClickCategory = { category ->
+                        onClickCategory = { id, name ->
                             startActivity(
                                 Intent(this, SourceActivity::class.java).apply {
-                                    putExtra(SourceConstants.KEY_EXTRA_CATEGORY, category)
+                                    putExtra(SourceConstants.KEY_EXTRA_CATEGORY_ID, id)
+                                    putExtra(SourceConstants.KEY_EXTRA_CATEGORY_NAME, name)
                                 }
                             )
                         }

@@ -24,13 +24,15 @@ import com.news.data.category.model.Category
 @Composable
 fun ScreenCategory(
     categories: List<Category>,
-    onClickCategory: (categoryId: String) -> Unit
+    onClickCategory: (id: String, name: String) -> Unit
 ) {
     Column {
         CategoryTitle(title = stringResource(id = R.string.category_title))
         CategoryList(
             categories = categories,
-            onClickCategory = { onClickCategory(it) }
+            onClickCategory = { id, name ->
+                onClickCategory(id, name)
+            }
         )
     }
 }
@@ -47,13 +49,16 @@ fun CategoryTitle(title: String) {
 @Composable
 fun CategoryList(
     categories: List<Category>,
-    onClickCategory: (categoryId: String) -> Unit
+    onClickCategory: (id: String, name: String) -> Unit
 ) {
     LazyColumn(modifier = Modifier.fillMaxWidth()) {
         items(categories) { category ->
             CategoryItem(
                 category = category,
-                onClickCategory = { onClickCategory(it) }
+                onClickCategory = { id, name ->
+                    onClickCategory(id, name)
+                }
+
             )
             Divider(color = Color.LightGray, modifier = Modifier.padding(horizontal = 20.dp))
         }
@@ -63,14 +68,14 @@ fun CategoryList(
 @Composable
 fun CategoryItem(
     category: Category,
-    onClickCategory: (categoryId: String) -> Unit
+    onClickCategory: (id: String, name: String) -> Unit
 ) {
     Row(
         modifier = Modifier
             .fillMaxWidth()
             .padding(20.dp)
             .clickable {
-                onClickCategory(category.id)
+                onClickCategory(category.id, category.name)
             }
     ) {
         Text(
@@ -93,7 +98,7 @@ fun PreviewScreenCategory() {
             Category.Sports("Sports"),
             Category.Technology("Technology")
         ),
-        onClickCategory = {}
+        onClickCategory = { _, _ -> }
     )
 }
 
@@ -111,14 +116,13 @@ fun PreviewCategoryList() {
             Category.Business("Business"),
             Category.Sports("Sports"),
             Category.Technology("Technology")
-        ),
-        {}
-    )
+        )
+    ) { _, _ -> }
 }
 
 
 @Preview(showBackground = true)
 @Composable
 fun PreviewCategoryItem() {
-    CategoryItem(Category.Business("Business"), {})
+    CategoryItem(Category.Business("Business")) { _, _ -> }
 }
