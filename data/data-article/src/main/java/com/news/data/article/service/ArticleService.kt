@@ -8,9 +8,9 @@ import retrofit2.http.Query
 
 interface ArticleService {
 
-    @GET(ApiConfig.URL_EVERYTHING)
+    @GET(ApiConfig.URL_TOP_HEADLINES)
     suspend fun getArticles(
-        @Query("domains") source: String
+        @Query("sources") source: String
     ): Response<ArticleResponse>
 
 }

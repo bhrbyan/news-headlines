@@ -21,6 +21,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.news.data.source.model.Source
 import com.news.ui.R
@@ -30,34 +31,48 @@ import com.news.ui.component.CommonMessageError
 @Composable
 fun ScreenSource(
     category: String,
-    onClickSource: (id: String) -> Unit,
+    modifier: Modifier = Modifier,
+    onClickSource: (source: String) -> Unit,
     sourceViewModel: SourceViewModel = viewModel()
 ) {
-    val sourcesState = sourceViewModel.sources.collectAsState()
+    val viewState = sourceViewModel.viewState.collectAsState()
 
     fun init() {
         sourceViewModel.getSources(category)
     }
 
     init()
-    when (val result = sourcesState.value) {
+    when (val result = viewState.value) {
         is SourceViewState.Loading -> {
-            CommonLoading()
+            CommonLoading(
+                modifier = modifier
+            )
         }
 
         is SourceViewState.Success -> {
-            SourceList(sources = result.sources, onClickSource = { onClickSource(it) })
+            SourceList(
+                sources = result.sources,
+                onClickSource = { onClickSource(it) },
+                modifier = modifier
+            )
         }
 
         is SourceViewState.Error -> {
-            CommonMessageError(message = stringResource(id = R.string.common_error_message))
+            CommonMessageError(
+                message = stringResource(id = R.string.common_error_message),
+                modifier = modifier
+            )
         }
     }
 }
 
 @Composable
-fun SourceList(sources: List<Source>, onClickSource: (id: String) -> Unit) {
-    LazyColumn(modifier = Modifier.fillMaxWidth()) {
+fun SourceList(
+    sources: List<Source>,
+    modifier: Modifier = Modifier,
+    onClickSource: (source: String) -> Unit
+) {
+    LazyColumn(modifier = modifier.fillMaxWidth()) {
         items(sources) { source ->
             SourceItem(source = source, onClickSource = { onClickSource(it) })
             Divider(color = Color.LightGray, modifier = Modifier.padding(horizontal = 20.dp))
@@ -67,7 +82,7 @@ fun SourceList(sources: List<Source>, onClickSource: (id: String) -> Unit) {
 
 @Composable
 fun SourceItem(
-    source: Source, onClickSource: (id: String) -> Unit, modifier: Modifier = Modifier
+    source: Source, onClickSource: (source: String) -> Unit, modifier: Modifier = Modifier
 ) {
     Row(
         verticalAlignment = Alignment.CenterVertically,
@@ -81,7 +96,7 @@ fun SourceItem(
         Column(
             modifier = Modifier.weight(1f)
         ) {
-            Text(text = source.name, fontWeight = FontWeight.Bold)
+            Text(text = source.name, fontWeight = FontWeight.Bold, fontSize = 20.sp)
             Text(text = source.description)
         }
         Icon(

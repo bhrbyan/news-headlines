@@ -15,19 +15,19 @@ import javax.inject.Inject
 class SourceViewModel @Inject constructor(private val getSourcesUseCase: GetSourcesUseCase) :
     ViewModel() {
 
-    private val _sources: MutableStateFlow<SourceViewState> =
+    private val _viewState: MutableStateFlow<SourceViewState> =
         MutableStateFlow(SourceViewState.Loading)
-    val sources: StateFlow<SourceViewState> = _sources.asStateFlow()
+    val viewState: StateFlow<SourceViewState> = _viewState.asStateFlow()
 
     fun getSources(category: String) {
         viewModelScope.launch {
             getSourcesUseCase.invoke(category)
                 .catch { e ->
-                    _sources.value = SourceViewState.Error(e)
+                    _viewState.value = SourceViewState.Error(e)
                 }
                 .collect { sources ->
                     if (sources?.isNotEmpty() == true) {
-                        _sources.value = SourceViewState.Success(sources)
+                        _viewState.value = SourceViewState.Success(sources)
                     }
                 }
         }
