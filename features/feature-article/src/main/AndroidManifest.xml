@@ -3,5 +3,6 @@
 
   <application>
     <activity android:name=".ArticleActivity" />
+    <activity android:name=".ArticleDetailActivity" />
   </application>
 </manifest>
