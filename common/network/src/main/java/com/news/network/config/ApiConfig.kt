@@ -6,5 +6,6 @@ object ApiConfig {
     const val URL_EVERYTHING: String = "everything"
     const val URL_TOP_HEADLINES: String = "top-headlines"
     const val URL_SOURCES: String = "${URL_TOP_HEADLINES}/sources"
+    const val PAGE_SIZE: Int = 10
 
 }

@@ -11,8 +11,7 @@ import javax.inject.Inject
 class SourceRepositoryImpl @Inject constructor(
     private val sourceService: SourceService,
     private val appDispatcher: AppDispatcher
-) :
-    SourceRepository {
+) : SourceRepository {
 
     override suspend fun getSources(category: String): Flow<List<Source>?> {
         return flow {
