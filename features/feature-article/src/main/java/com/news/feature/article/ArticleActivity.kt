@@ -21,7 +21,7 @@ class ArticleActivity : ComponentActivity() {
                 CommonMainScreen(
                     title = sourceName,
                     hasNavigation = true,
-                    hasAction = true,
+                    hasAction = false,
                     onClickNavigation = { onBackPressedDispatcher.onBackPressed() },
                     onClickAction = {}
                 ) {

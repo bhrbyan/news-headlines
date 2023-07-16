@@ -25,7 +25,7 @@ class SourceActivity : ComponentActivity() {
                 CommonMainScreen(
                     title = categoryName,
                     hasNavigation = true,
-                    hasAction = true,
+                    hasAction = false,
                     onClickNavigation = { onBackPressedDispatcher.onBackPressed() },
                     onClickAction = {
 
