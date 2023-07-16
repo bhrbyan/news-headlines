@@ -8,15 +8,22 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.Divider
+import androidx.compose.material.Icon
+import androidx.compose.material.OutlinedTextField
 import androidx.compose.material.Text
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.rounded.Search
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -41,12 +48,21 @@ fun ScreenArticle(
     onClickArticle: (url: String) -> Unit,
     viewModel: ArticleViewModel = viewModel()
 ) {
-    val articles = viewModel.getArticles(source).collectAsLazyPagingItems()
-    ArticleList(
-        articles = articles,
-        onClickArticle = { onClickArticle(it) },
-        modifier = modifier
-    )
+    viewModel.setSource(source)
+    val articles = viewModel.getArticles().collectAsLazyPagingItems()
+    val query = viewModel.query.collectAsState()
+
+    Column(modifier) {
+        SearchInput(
+            query = query.value,
+            onSearch = { viewModel.onSearch(it) },
+        )
+        ArticleList(
+            articles = articles,
+            onClickArticle = { onClickArticle(it) },
+            modifier = modifier
+        )
+    }
 }
 
 @Composable
@@ -58,9 +74,9 @@ fun ArticleList(
     LazyColumn(modifier = modifier.fillMaxWidth()) {
         items(count = articles.itemCount) { index ->
             val article = articles[index]
-            article?.let {
+            article?.let { article ->
                 ArticleItem(
-                    article = it,
+                    article = article,
                     onClickArticle = { onClickArticle(it) }
                 )
                 Divider(color = Color.LightGray, modifier = Modifier.padding(horizontal = 20.dp))
@@ -170,8 +186,32 @@ fun ArticleItem(
             fontWeight = FontWeight.Light,
             fontSize = 12.sp
         )
-
     }
+}
+
+@Composable
+fun SearchInput(
+    query: String,
+    onSearch: (String) -> Unit,
+    modifier: Modifier = Modifier
+) {
+    OutlinedTextField(
+        value = query,
+        onValueChange = { onSearch(it) },
+        label = { Text(text = stringResource(id = com.news.ui.R.string.common_input_placeholder_search)) },
+        maxLines = 1,
+        trailingIcon = { Icon(imageVector = Icons.Rounded.Search, contentDescription = null) },
+        keyboardOptions = KeyboardOptions(imeAction = ImeAction.Search),
+        modifier = modifier
+            .fillMaxWidth()
+            .padding(horizontal = 20.dp)
+    )
+}
+
+@Composable
+@Preview(showBackground = true)
+fun PreviewSearchInput() {
+    SearchInput("", {})
 }
 
 @Composable

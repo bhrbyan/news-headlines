@@ -9,7 +9,8 @@ interface ArticleService {
 
     @GET("${ApiConfig.URL_EVERYTHING}?pageSize=${ApiConfig.PAGE_SIZE}")
     suspend fun getArticles(
-        @Query("sources") sources: String,
+        @Query("q") query: String?,
+        @Query("sources") sources: String = "",
         @Query("page") page: Int
     ): ArticleResponse
 

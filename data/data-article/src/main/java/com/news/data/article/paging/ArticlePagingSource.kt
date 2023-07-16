@@ -6,6 +6,7 @@ import com.news.data.article.model.Article
 import com.news.data.article.service.ArticleService
 
 class ArticlePagingSource(
+    private val query: String?,
     private val source: String,
     private val articleService: ArticleService
 ) : PagingSource<Int, Article>() {
@@ -19,6 +20,7 @@ class ArticlePagingSource(
 
             val page = params.key ?: 1
             val response = articleService.getArticles(
+                query = query,
                 sources = source,
                 page = page
             )

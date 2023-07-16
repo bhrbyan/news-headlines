@@ -8,8 +8,8 @@ import javax.inject.Inject
 
 class GetArticlesUseCase @Inject constructor(private val articleRepository: ArticleRepository) {
 
-    operator fun invoke(source: String): Flow<PagingData<Article>> {
-        return articleRepository.getArticles(source)
+    operator fun invoke(query: String?, source: String): Flow<PagingData<Article>> {
+        return articleRepository.getArticles(query, source)
     }
 
 }
